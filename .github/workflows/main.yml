@@ -1,0 +1,30 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: use node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+
+      - name: install dependencies
+        run: npm ci
+
+      - name: run tests
+        run: npm test
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+          API_SECRET: ${{ secrets.API_SECRET }}

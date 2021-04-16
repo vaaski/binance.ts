@@ -3,6 +3,8 @@ import got, { withKey, withSignature } from "./got"
 
 import type { AvgPrice, TickerPrice, UserData } from "../types"
 
+export { combineTo, findConversion } from "./util"
+
 export default class Binance {
   private got: Got
   private gotKey: Got | null = null

@@ -1,6 +1,5 @@
 import test from "ava"
-import Binance from "../src"
-import { combineTo } from "../src/util"
+import Binance, { combineTo, findConversion } from "../src"
 
 import type { TickerPrice, UserData } from "../types"
 
@@ -20,4 +19,8 @@ test("get combined account balance in USDT", async t => {
   const combined = combineTo(account.balances, tickers, "USDT")
 
   t.truthy(combined)
+})
+
+test("find USDT to EUR conversion", t => {
+  t.truthy(findConversion(tickers, "USDT", "EUR"))
 })

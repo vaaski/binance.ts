@@ -15,6 +15,7 @@ export default _got.extend({
     beforeError: [
       error => {
         const { response } = error
+        /* istanbul ignore next */
         if (response?.body) {
           const body = response.body as Record<string, string>
           log.extend("error")(body)

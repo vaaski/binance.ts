@@ -3,11 +3,16 @@ import type { Balance, TickerPrice } from "../types"
 
 export const debug = Debug("binance.ts").extend
 
-export const findConversion = (tickers: TickerPrice[], symbol: string, to: string): number => {
-  const found = tickers.find(t => t.symbol === `${symbol}${to}`)
+export const findConversion = (tickers: TickerPrice[], from: string, to: string): number => {
+  from = from.toUpperCase()
+  to = to.toUpperCase()
+
+  if (from === to) return 1
+
+  const found = tickers.find(t => t.symbol === `${from}${to}`)
   if (found) return parseFloat(found.price)
 
-  const reversed = tickers.find(t => t.symbol === `${to}${symbol}`)
+  const reversed = tickers.find(t => t.symbol === `${to}${from}`)
   if (reversed) return 1 / parseFloat(reversed.price)
 
   return 0
